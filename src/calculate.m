@@ -1,21 +1,31 @@
-function result = calculate(inputs)
+function result = calculate(inputs, weights = [])
   result = [];
   inputsWithBiases = addBiasesToInputs(inputs);
-	arch = [2,3,1];
-	weights = calculateWeights(arch);
+  if (length(weights) == 0)
+    arch = [2,8,4,1];
+    weights = calculateWeights(arch);
+  else
+    arch = calculateArch(weights)
+  endif
   for inputNumber = 1:length(inputs)
     input = inputsWithBiases{inputNumber};
-    for layer = 1:length(weights)
-      layerWeights = weights{layer};
-      input{layer+1} = [evaluateFunction(input{layer}, layerWeights) -1];
-    endfor
-    result = [result; input{length(input)}(1)];
+    outputs = calculateIntermediateValues(input, weights, length(arch));
+    result = [result; outputs{length(arch)}(1)];
   endfor
 endfunction
+
+# ---- Helper functions ---- #
 
 function inputsWithBiases = addBiasesToInputs(inputs)
   inputsWithBiases = {};
   for i = 1:rows(inputs)
     inputsWithBiases{i}{1} = [inputs(i,:) -1];
+  endfor
+endfunction
+
+function arch = calculateArch(weights)
+  arch = []
+  for i = 1:columns(weights)
+    arch = [arch nnz(weights(:,i))]
   endfor
 endfunction
