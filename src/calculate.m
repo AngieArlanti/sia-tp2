@@ -7,9 +7,9 @@ function result = calculate(inputs, weights = [])
   else
     arch = calculateArch(weights)
   endif
-  for inputNumber = 1:length(inputs)
+  for inputNumber = 1:rows(inputs)
     input = inputsWithBiases{inputNumber};
-    outputs = calculateIntermediateValues(input, weights, length(arch));
+    outputs = feedforward(input, weights);
     result = [result; outputs{length(arch)}(1)];
   endfor
 endfunction
