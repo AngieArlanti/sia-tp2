@@ -5,8 +5,8 @@ function weights = calculateWeights(layersFromArchive)
 	for i = 1:length(layersFromArchive)-1
 		rows = layersFromArchive(i)+1;
 		cols = layersFromArchive(i+1);
-		#layer = rand(rows, cols);
-		layer = ones(rows, cols);
+    m = cols**-(1/2)
+		layer = 2*m*rand(rows, cols) - m;
 		weights(i) = layer;
 	endfor
 
