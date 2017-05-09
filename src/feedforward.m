@@ -3,6 +3,10 @@ function intermediateValues = feedforward(input, weights)
   for layer = 1:length(weights)
     layerWeights = weights{layer};
     layerOutputs = evaluateFunction(intermediateValues{layer}, layerWeights);
-    intermediateValues{layer+1} = [layerOutputs -1];
+    if layer != length(weights)
+      intermediateValues{layer+1} = [layerOutputs -1];
+    else
+      intermediateValues{layer+1} = layerOutputs;
+    endif
   endfor
 endfunction

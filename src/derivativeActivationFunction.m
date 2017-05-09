@@ -1,0 +1,1 @@
+function response = derivativeActivationFunction(input)  response = atanh(input);endfunction
