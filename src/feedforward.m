@@ -1,5 +1,5 @@
 function intermediateValues = feedforward(input, weights)
-  intermediateValues = input;
+  intermediateValues = {input};
   for layer = 1:length(weights)
     layerWeights = weights{layer};
     layerOutputs = evaluateFunction(intermediateValues{layer}, layerWeights);
