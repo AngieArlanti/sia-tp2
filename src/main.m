@@ -24,7 +24,7 @@ function main()
 
   while(!learned(cuadraticError,acceptedError))
     #Training
-    [updatedWeights, obtainedOutputs] = train(learningPatterns, weights, expectedLearningOutputs, etha);
+    [updatedWeights, obtainedOutputs] = train(learningPatterns, weights, expectedLearningOutputs, configuration);
     cuadraticError = calculateCuadraticError(learningPatterns, updatedWeights, expectedLearningOutputs);
     learningErrors = [learningErrors,cuadraticError];
     #Testing
