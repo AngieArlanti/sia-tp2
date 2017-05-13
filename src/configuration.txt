@@ -1,9 +1,8 @@
 architecture=2,2,1
 eta=0.005
 activationFunction=tanh
-maxEpochs=5000
-minCuadraticError=0.1
+maxEpochs=100
+minCuadraticError=0.01
 beta=3
 momentum=0.3
-learningDataPath=../resources/learning.csv
-testingDataPath=../resources/testing.csv
+dataSource=../resources/terrain.csv

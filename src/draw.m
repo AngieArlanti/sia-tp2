@@ -1,19 +1,19 @@
 function draw(learningPatterns, expectedLearningOutputs, obtainedOutputs)
 
 for i = 1: length(learningPatterns)
-  x(i) = learningPatterns{i}(:,1)
+  x(i) = learningPatterns{i}(:,1);
 endfor
 
 for i = 1: length(expectedLearningOutputs)
-  y(i) = expectedLearningOutputs{i}(:,1)
+  y(i) = expectedLearningOutputs{i}(:,1);
 endfor
 
 for i = 1: length(expectedLearningOutputs)
-  expectedZ(i) = expectedLearningOutputs{i}(:,1)
+  expectedZ(i) = expectedLearningOutputs{i}(:,1);
 endfor
 
 for i = 1: length(obtainedOutputs)
-  obtainedZ(i) = obtainedOutputs{i}(:,1)
+  obtainedZ(i) = obtainedOutputs{i}(:,1);
 endfor
 
 plot3(x,y,expectedZ,'ro');

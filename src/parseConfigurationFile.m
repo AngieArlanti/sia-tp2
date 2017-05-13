@@ -29,10 +29,8 @@ function config = parseConfigurationFile()
         [config.activationFunction, config.activationFunctionDerivative]  = parseActivationFunction(value);
       case 'momentum'
         config.momentum = str2double(value);
-      case 'learningDataPath'
-        [config.learningDataInputs,config.learningDataExpectedOutputs] = readFromFile(value);
-      case 'testingDataPath'
-        [config.testingDataInputs,config.testingDataExpectedOutputs] = readFromFile(value);
+      case 'dataSource'
+        [config.learningDataInputs,config.learningDataExpectedOutputs,config.testingDataInputs,config.testingDataExpectedOutputs] = readFromFile(value);
   	endswitch
 	endwhile
   fclose (fid);
@@ -60,20 +58,27 @@ function array = networkToArray(networkString)
 endfunction
 
 #Return a matrix of inputs and expectedOutputs
-function [inputs, expectedOutputs] = readFromFile(dataPath)
+function [learningInputs, learningExpectedOutputs, testingInputs, testingExpectedOutputs] = readFromFile(dataPath)
   data = csvread(dataPath);
-  inputs = {};
-  expected_outputs = {};
+  learningInputs = {};
+  learningExpectedOutputs = {};
+	testingInputs = {};
+  testingExpectedOutputs = {};
   for index = 1:rows(data)
-    inputs{index} = data(index, 1:2);
-    expectedOutputs{index} = data(index, 3);
+		if(mod(index,2) == 0)
+    	learningInputs{length(learningInputs)+1} = data(index, 1:2);
+    	learningExpectedOutputs{length(learningExpectedOutputs)+1} = data(index, 3);
+		else
+			testingInputs{length(testingInputs)+1} = data(index, 1:2);
+    	testingExpectedOutputs{length(testingExpectedOutputs)+1} = data(index, 3);
+		endif
   endfor
 endfunction
 
 #Activation functions and derivatives
 #Derivative activation functions
 function response = tanDerivativeActivationFunction(input)
-  response = 1-tanh(input).^2;
+  response = 1-tanh(3*input).^2;
 endfunction
 
 function response = expDerivativeActivationFunction(input)
@@ -82,7 +87,7 @@ endfunction
 
 #Activation functions
 function response = tanActivationFunction(input)
-  response = tanh(input);
+  response = tanh(3*input);
 endfunction
 function response = expActivationFunction(input)
   response = exp(input);
