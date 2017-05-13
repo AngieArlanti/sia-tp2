@@ -1,6 +1,7 @@
 function main()
 
   #One epoch is one train.
+
   configuration = parseConfigurationFile();
   acceptedError = configuration.minCuadraticError;
   cuadraticError = 1;
@@ -23,10 +24,9 @@ function main()
 
   while(!learned(cuadraticError,acceptedError))
     #Training
-    updatedWeights = train(learningPatterns, weights, expectedLearningOutputs, etha);
+    [updatedWeights, obtainedOutputs] = train(learningPatterns, weights, expectedLearningOutputs, etha);
     cuadraticError = calculateCuadraticError(learningPatterns, updatedWeights, expectedLearningOutputs);
     learningErrors = [learningErrors,cuadraticError];
-
     #Testing
     cuadraticTestingError = calculateCuadraticError(testingPatterns, updatedWeights, expectedTestingOutputs);
     testingErrors = [testingErrors,cuadraticTestingError];
@@ -41,5 +41,7 @@ function main()
   end
 
   #plot(1:1:length(learningErrors), learningErrors,1:1:length(learningErrors),testingErrors);
+  draw(learningPatterns, expectedLearningOutputs, obtainedOutputs);
+
 
 endfunction

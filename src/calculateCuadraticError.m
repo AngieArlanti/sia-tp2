@@ -1,4 +1,5 @@
 function cuadraticError = calculateCuadraticError(patterns, updatedWeights, expectedOutputs)
+
 inputsWithBiases=addBiasesToInputs(patterns);
   error = 0;
   for u = 1:length(inputsWithBiases)
