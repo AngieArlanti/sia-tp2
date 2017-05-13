@@ -15,7 +15,7 @@ function main()
   testingPatterns = configuration.testingDataInputs;
   expectedTestingOutputs = configuration.testingDataExpectedOutputs;
 
-  weights = calculateWeights([2,2,1]); #Le pasamos la arquitectura.
+  weights = calculateWeights(configuration.architecture); #Le pasamos la arquitectura.
   #The epoch corresponds with index.
   learningErrors = [];
   testingErrors = [];
