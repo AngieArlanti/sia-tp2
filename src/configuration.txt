@@ -1,0 +1,9 @@
+architecture=1,35,15,1
+eta=0.005
+activationFunction=tanh
+maxEpochs=5000
+minCuadraticError=0.0001
+beta=3
+momentum=0.3
+learningDataPath=../resources/terrain.csv
+testingDataPath=../resources/terrain.csv

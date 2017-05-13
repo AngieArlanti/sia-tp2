@@ -1,1 +1,1 @@
-function response = activationFunction(input)  response = tanh(input);endfunction
+function response = activationFunction(input)  response = tanh(input);endfunction

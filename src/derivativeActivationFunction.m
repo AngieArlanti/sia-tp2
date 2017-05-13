@@ -1,1 +1,1 @@
-function response = derivativeActivationFunction(input)  response = 1-tanh(input).^2;endfunction
+function response = derivativeActivationFunction(input)  response = 1-tanh(input).^2;endfunction
