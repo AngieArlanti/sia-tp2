@@ -1,4 +1,4 @@
-architecture=1,35,15,1
+architecture=2,2,1
 eta=0.005
 activationFunction=tanh
 maxEpochs=5000
