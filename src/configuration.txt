@@ -1,8 +1,8 @@
-architecture=2,2,1
+architecture=2,50,20,5,2,1
 eta=0.005
 activationFunction=tanh
 maxEpochs=100
 minCuadraticError=0.01
-beta=3
+beta=1
 momentum=0.3
 dataSource=../resources/terrain.csv

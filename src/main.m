@@ -23,23 +23,27 @@ function main()
   testingErrors = [];
   etha = configuration.etha;
   initSeconds = time();
+
   while(!learned(cuadraticError,acceptedError) || maxEpochs != length(learningErrors))
     #Training
     [updatedWeights, obtainedOutputs] = train(learningPatterns, weights, expectedLearningOutputs, configuration);
     cuadraticError = calculateCuadraticError(learningPatterns, updatedWeights, expectedLearningOutputs);
+
     learningErrors = [learningErrors cuadraticError];
+
     #Testing
     cuadraticTestingError = calculateCuadraticError(testingPatterns, updatedWeights, expectedTestingOutputs);
     testingErrors = [testingErrors cuadraticTestingError];
-    learningErrors
     #TODO check overfitting (Sobreentrenamiento).
     #Overfitting calculation
     #if(cuadraticError < cuadraticTestingError)
     #  overfitting++;
     #endif
-    cla;
-    draw(learningPatterns, expectedLearningOutputs, obtainedOutputs);
+    #cla;
+    #draw(learningPatterns, expectedLearningOutputs, obtainedOutputs);
     weights = updatedWeights;
+    plot(learningErrors);
+
   end
   finalSeconds = time() - initSeconds;
   disp('Tiempo:'),

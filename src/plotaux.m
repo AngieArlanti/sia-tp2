@@ -1,4 +1,4 @@
-function plot( original_patterns,original_outputs, solved_patterns, solved_outputs )
+function plotaux( original_patterns,original_outputs, solved_patterns, solved_outputs )
 
     figure;
     plot3(original_patterns(1,:), original_patterns(2,:),original_outputs, 'ro');
