@@ -25,6 +25,9 @@ function main()
   etha = configuration.etha;
   initSeconds = time();
 
+  f1 = figure(); hold on
+  f2 = figure(); hold on
+
   while(!learned(cuadraticError,acceptedError) && length(learningErrors)<maxEpochs)
     #Training
     [updatedWeights, obtainedOutputs] = train(learningPatterns, weights, expectedLearningOutputs, configuration);
@@ -44,6 +47,7 @@ function main()
     #draw(learningPatterns, expectedLearningOutputs, obtainedOutputs);
     weights = updatedWeights;
 
+    set(0,'CurrentFigure',f1)
     plot(learningErrors,'r');
     hold on;
     plot(testingErrors,'b');
@@ -56,6 +60,6 @@ function main()
   saveOutputs(finalSeconds, learningErrors, obtainedOutputs,acceptedError,maxEpochs,architecture,etha,beta);
 
   #plot(learningErrors);
-  draw(learningPatterns, expectedLearningOutputs, obtainedOutputs);
+  draw(learningPatterns, expectedLearningOutputs, obtainedOutputs, f2);
 
 endfunction

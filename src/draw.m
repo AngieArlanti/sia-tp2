@@ -1,4 +1,4 @@
-function draw(learningPatterns, expectedLearningOutputs, obtainedOutputs)
+function draw(learningPatterns, expectedLearningOutputs, obtainedOutputs, f2)
 
 for i = 1: length(learningPatterns)
   x(i) = learningPatterns{i}(:,1);
@@ -16,6 +16,7 @@ for i = 1: length(obtainedOutputs)
   obtainedZ(i) = obtainedOutputs{i}(:,1);
 endfor
 
+figure(f2);
 plot3(x,y,expectedZ,'ro');
 hold on;
 plot3(x,y,obtainedZ,'b*');
