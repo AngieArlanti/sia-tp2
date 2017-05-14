@@ -16,8 +16,9 @@ function main()
   expectedLearningOutputs = configuration.learningDataExpectedOutputs;
   testingPatterns = configuration.testingDataInputs;
   expectedTestingOutputs = configuration.testingDataExpectedOutputs;
+  architecture = configuration.architecture;
 
-  weights = calculateWeights(configuration.architecture); #Le pasamos la arquitectura.
+  weights = calculateWeights(architecture); #Le pasamos la arquitectura.
   #The epoch corresponds with index.
   learningErrors = [];
   testingErrors = [];
@@ -50,15 +51,11 @@ function main()
   end
   clf;
   finalSeconds = time() - initSeconds;
-  disp('Tiempo:'),
-  disp(finalSeconds);
-  disp('Epocas:'),
-  disp(length(learningErrors))
-  disp(learningErrors(end))
-  #plot(learningErrors);
-  save obtainedOutputs.csv obtainedOutputs;
-  save outputs.csv finalSeconds;
-  draw(learningPatterns, expectedLearningOutputs, obtainedOutputs);
 
+  displayOutputs(finalSeconds, learningErrors, configuration);
+  saveOutputs(finalSeconds, learningErrors, obtainedOutputs,acceptedError,maxEpochs,architecture,etha,beta);
+
+  #plot(learningErrors);
+  draw(learningPatterns, expectedLearningOutputs, obtainedOutputs);
 
 endfunction
