@@ -1,7 +1,7 @@
 architecture=2,35,15,1
 eta=0.005
 activationFunction=tanh
-maxEpochs=100
+maxEpochs=500
 minCuadraticError=0.15
 beta=3
 momentum=0.3

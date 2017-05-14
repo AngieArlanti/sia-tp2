@@ -24,7 +24,7 @@ function main()
   etha = configuration.etha;
   initSeconds = time();
 
-  while(!learned(cuadraticError,acceptedError) || maxEpochs != length(learningErrors))
+  while(!learned(cuadraticError,acceptedError) && length(learningErrors)<maxEpochs)
     #Training
     [updatedWeights, obtainedOutputs] = train(learningPatterns, weights, expectedLearningOutputs, configuration);
     cuadraticError = calculateCuadraticError(learningPatterns, updatedWeights, expectedLearningOutputs);
@@ -42,11 +42,13 @@ function main()
     #cla;
     #draw(learningPatterns, expectedLearningOutputs, obtainedOutputs);
     weights = updatedWeights;
-    plot(learningErrors);
+
+    plot(learningErrors,'r');
     hold on;
-    plot(testingErrors);
+    plot(testingErrors,'b');
 
   end
+  clf;
   finalSeconds = time() - initSeconds;
   disp('Tiempo:'),
   disp(finalSeconds);
