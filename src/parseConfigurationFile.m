@@ -77,18 +77,18 @@ endfunction
 
 #Activation functions and derivatives
 #Derivative activation functions
-function response = tanDerivativeActivationFunction(input)
-  response = 1-tanh(3*input).^2;
+function response = tanDerivativeActivationFunction(input,beta)
+  response = 1-tanh(beta*input).^2;
 endfunction
 
-function response = expDerivativeActivationFunction(input)
-  response = exp(input);
+function response = expDerivativeActivationFunction(input,beta)
+  response = exp(beta*input);
 endfunction
 
 #Activation functions
-function response = tanActivationFunction(input)
-  response = tanh(3*input);
+function response = tanActivationFunction(input,beta)
+  response = tanh(beta*input);
 endfunction
-function response = expActivationFunction(input)
-  response = exp(input);
+function response = expActivationFunction(input,beta)
+  response = exp(beta*input);
 endfunction

@@ -43,6 +43,8 @@ function main()
     #draw(learningPatterns, expectedLearningOutputs, obtainedOutputs);
     weights = updatedWeights;
     plot(learningErrors);
+    hold on;
+    plot(testingErrors);
 
   end
   finalSeconds = time() - initSeconds;
