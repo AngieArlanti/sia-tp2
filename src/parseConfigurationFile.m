@@ -19,6 +19,8 @@ function config = parseConfigurationFile()
   			config.etha = str2double(value);
   		case 'beta'
         config.beta = str2double(value);
+			case 'learningPatternsPercentage'
+	      config.learningPatternsPercentage = str2double(value);
   		case 'maxEpochs'
   			config.maxEpochs = str2double(value);
   		case 'minCuadraticError'
@@ -30,7 +32,7 @@ function config = parseConfigurationFile()
       case 'momentum'
         config.momentum = str2double(value);
       case 'dataSource'
-        [config.learningDataInputs,config.learningDataExpectedOutputs,config.testingDataInputs,config.testingDataExpectedOutputs] = readFromFile(value);
+        [config.learningDataInputs,config.learningDataExpectedOutputs,config.testingDataInputs,config.testingDataExpectedOutputs] = readFromFile(value,config.learningPatternsPercentage);
   	endswitch
 	endwhile
   fclose (fid);
@@ -58,38 +60,25 @@ function array = networkToArray(networkString)
 endfunction
 
 #Return a matrix of inputs and expectedOutputs
-function [learningInputs, learningExpectedOutputs, testingInputs, testingExpectedOutputs] = readFromFile(dataPath)
-  data = csvread(dataPath);
-	data = sortrows(data,3);
-	distanceMedian = distanceMedianFromVector(data(:,3));
+function [learningInputs, learningExpectedOutputs, testingInputs, testingExpectedOutputs] = readFromFile(dataPath,learningPercentage)
+  data = csvread('../resources/terrain.csv');
+	indexShuffle = randperm(length(data));
+	learningElementsAmount = ceil(length(data)*learningPercentage);
+	testingElementsAmount = length(data)-learningElementsAmount;
   learningInputs = {};
   learningExpectedOutputs = {};
 	testingInputs = {};
   testingExpectedOutputs = {};
 
-  for index = 1:rows(data)
-		if(index < length(data))
-			if((data(index+1,3)-data(index,3)>distanceMedian))
-    		learningInputs{length(learningInputs)+1} = data(index, 1:2);
-    		learningExpectedOutputs{length(learningExpectedOutputs)+1} = data(index, 3);
-			else
-				testingInputs{length(testingInputs)+1} = data(index, 1:2);
-    		testingExpectedOutputs{length(testingExpectedOutputs)+1} = data(index, 3);
-			endif
-		else
-			testingInputs{length(testingInputs)+1} = data(index, 1:2);
-			testingExpectedOutputs{length(testingExpectedOutputs)+1} = data(index, 3);
-		endif
-  endfor
-endfunction
-
-function distanceMedianFromVector = distanceMedianFromVector(data)
-	distanceVector=[];
-	for index = 1:length(data)-1
-    distanceValue = abs((data(index+1)-data(index)));
-		distanceVector = [distanceVector distanceValue];
+  for index = 1:learningElementsAmount
+		learningInputs{length(learningInputs)+1} = data(index, 1:2);
+		learningExpectedOutputs{length(learningExpectedOutputs)+1} = data(index, 3);
 	endfor
-	distanceMedianFromVector = median(distanceVector);
+
+	for index = 1:testingElementsAmount
+		testingInputs{length(testingInputs)+1} = data(index, 1:2);
+		testingExpectedOutputs{length(testingExpectedOutputs)+1} = data(index, 3);
+	endfor
 endfunction
 
 #Activation functions and derivatives

@@ -1,5 +1,6 @@
 architecture=2,35,15,1
 eta=0.005
+learningPatternsPercentage=0.8
 activationFunction=tanh
 maxEpochs=100
 minCuadraticError=0.001
