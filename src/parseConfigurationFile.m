@@ -4,6 +4,7 @@
 #Return a config object with all the data from the configuration file
 function config = parseConfigurationFile()
 	fid = fopen ('configuration.txt', 'r');
+	config.alpha = 0;
 	while (!feof (fid))
   	line = fgetl (fid);
     disp(line);
@@ -29,8 +30,8 @@ function config = parseConfigurationFile()
   			config.architecture = networkToArray(strsplit(value, ','));
   		case 'activationFunction'
         [config.activationFunction, config.activationFunctionDerivative]  = parseActivationFunction(value);
-      case 'momentum'
-        config.momentum = str2double(value);
+      case 'alpha'
+        config.momentum = 1/(1-str2double(value));
       case 'dataSource'
         [config.learningDataInputs,config.learningDataExpectedOutputs,config.testingDataInputs,config.testingDataExpectedOutputs] = readFromFile(value,config.learningPatternsPercentage);
   	endswitch
@@ -71,13 +72,13 @@ function [learningInputs, learningExpectedOutputs, testingInputs, testingExpecte
   testingExpectedOutputs = {};
 
   for index = 1:learningElementsAmount
-		learningInputs{length(learningInputs)+1} = data(index, 1:2);
-		learningExpectedOutputs{length(learningExpectedOutputs)+1} = data(index, 3);
+		learningInputs{length(learningInputs)+1} = data(indexShuffle(index), 1:2);
+		learningExpectedOutputs{length(learningExpectedOutputs)+1} = data(indexShuffle(index), 3);
 	endfor
 
-	for index = 1:testingElementsAmount
-		testingInputs{length(testingInputs)+1} = data(index, 1:2);
-		testingExpectedOutputs{length(testingExpectedOutputs)+1} = data(index, 3);
+	for index = learningElementsAmount:length(data)
+		testingInputs{length(testingInputs)+1} = data(indexShuffle(index), 1:2);
+		testingExpectedOutputs{length(testingExpectedOutputs)+1} = data(indexShuffle(index), 3);
 	endfor
 endfunction
 
