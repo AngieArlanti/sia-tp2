@@ -64,13 +64,19 @@ function [learningInputs, learningExpectedOutputs, testingInputs, testingExpecte
   learningExpectedOutputs = {};
 	testingInputs = {};
   testingExpectedOutputs = {};
+
   for index = 1:rows(data)
-		if(mod(index,2) == 0)
-    	learningInputs{length(learningInputs)+1} = data(index, 1:2);
-    	learningExpectedOutputs{length(learningExpectedOutputs)+1} = data(index, 3);
+		if(index < length(data))
+			if((data(index+1,3)-data(index,3)>0.003))
+    		learningInputs{length(learningInputs)+1} = data(index, 1:2);
+    		learningExpectedOutputs{length(learningExpectedOutputs)+1} = data(index, 3);
+			else
+				testingInputs{length(testingInputs)+1} = data(index, 1:2);
+    		testingExpectedOutputs{length(testingExpectedOutputs)+1} = data(index, 3);
+			endif
 		else
 			testingInputs{length(testingInputs)+1} = data(index, 1:2);
-    	testingExpectedOutputs{length(testingExpectedOutputs)+1} = data(index, 3);
+			testingExpectedOutputs{length(testingExpectedOutputs)+1} = data(index, 3);
 		endif
   endfor
 endfunction

@@ -17,7 +17,7 @@ function main()
   testingPatterns = configuration.testingDataInputs;
   expectedTestingOutputs = configuration.testingDataExpectedOutputs;
   architecture = configuration.architecture;
-
+  beta = configuration.beta;
   weights = calculateWeights(architecture); #Le pasamos la arquitectura.
   #The epoch corresponds with index.
   learningErrors = [];
@@ -52,11 +52,11 @@ function main()
     plot(testingErrors,'b');
 
   end
-  clf;
+
   finalSeconds = time() - initSeconds;
 
   displayOutputs(finalSeconds, learningErrors, configuration);
-#  saveOutputs(finalSeconds, learningErrors, obtainedOutputs,acceptedError,maxEpochs,architecture,etha,beta);
+  saveOutputs(finalSeconds, learningErrors, obtainedOutputs,acceptedError,maxEpochs,architecture,etha,beta);
 
   #plot(learningErrors);
   draw(learningPatterns, expectedLearningOutputs, obtainedOutputs, f2);
