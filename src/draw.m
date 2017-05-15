@@ -4,8 +4,8 @@ for i = 1: length(learningPatterns)
   x(i) = learningPatterns{i}(:,1);
 endfor
 
-for i = 1: length(expectedLearningOutputs)
-  y(i) = expectedLearningOutputs{i}(:,1);
+for i = 1: length(learningPatterns)
+  y(i) = learningPatterns{i}(:,2);
 endfor
 
 for i = 1: length(expectedLearningOutputs)
