@@ -60,6 +60,8 @@ endfunction
 #Return a matrix of inputs and expectedOutputs
 function [learningInputs, learningExpectedOutputs, testingInputs, testingExpectedOutputs] = readFromFile(dataPath)
   data = csvread(dataPath);
+	data = sortrows(data,3);
+	distanceMedian = distanceMedianFromVector(data(:,3));
   learningInputs = {};
   learningExpectedOutputs = {};
 	testingInputs = {};
@@ -67,7 +69,7 @@ function [learningInputs, learningExpectedOutputs, testingInputs, testingExpecte
 
   for index = 1:rows(data)
 		if(index < length(data))
-			if((data(index+1,3)-data(index,3)>0.003))
+			if((data(index+1,3)-data(index,3)>distanceMedian))
     		learningInputs{length(learningInputs)+1} = data(index, 1:2);
     		learningExpectedOutputs{length(learningExpectedOutputs)+1} = data(index, 3);
 			else
@@ -79,6 +81,15 @@ function [learningInputs, learningExpectedOutputs, testingInputs, testingExpecte
 			testingExpectedOutputs{length(testingExpectedOutputs)+1} = data(index, 3);
 		endif
   endfor
+endfunction
+
+function distanceMedianFromVector = distanceMedianFromVector(data)
+	distanceVector=[];
+	for index = 1:length(data)-1
+    distanceValue = abs((data(index+1)-data(index)));
+		distanceVector = [distanceVector distanceValue];
+	endfor
+	distanceMedianFromVector = median(distanceVector);
 endfunction
 
 #Activation functions and derivatives
