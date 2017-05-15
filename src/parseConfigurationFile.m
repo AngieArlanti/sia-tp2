@@ -42,11 +42,11 @@ endfunction
 function [activationFunction, activationFunctionDerivative] = parseActivationFunction(string)
   switch string
     case 'tanh'
-      activationFunction = @tanDerivativeActivationFunction;
-      activationFunctionDerivative = @tanActivationFunction;
+      activationFunction = @tanActivationFunction;
+      activationFunctionDerivative = @tanDerivativeActivationFunction;
     case 'exp'
-      activationFunction = @expDerivativeActivationFunction;
-      activationFunctionDerivative = @expActivationFunction;
+      activationFunction = @expActivationFunction;
+      activationFunctionDerivative = @expDerivativeActivationFunction;
   endswitch
 endfunction
 
@@ -77,18 +77,29 @@ endfunction
 
 #Activation functions and derivatives
 #Derivative activation functions
-function response = tanDerivativeActivationFunction(input,beta)
-  response = 1-tanh(beta*input).^2;
+function response = tanDerivativeActivationFunction(input,beta, outputLayer=0)
+  response = 1-input.^2;
 endfunction
 
-function response = expDerivativeActivationFunction(input,beta)
-  response = exp(beta*input);
+function response = expDerivativeActivationFunction(input,beta,outputLayer=0)
+	if(outputLayer)
+		#Normalized with linear function between 0 and 1.
+		response = (input^2) * ((input^(-1))-1);
+	else
+		response = input;
+	endif
 endfunction
 
 #Activation functions
-function response = tanActivationFunction(input,beta)
+function response = tanActivationFunction(input,beta,outputLayer=0)
   response = tanh(beta*input);
 endfunction
-function response = expActivationFunction(input,beta)
-  response = exp(beta*input);
+function response = expActivationFunction(input,beta,outputLayer=0)
+	if(outputLayer)
+		x = beta*input;
+		#Normalized with linear function between 0 and 1.
+		response = (1+exp((-1)*x))^(-1);
+	else
+		response = exp(beta*input);
+	endif
 endfunction

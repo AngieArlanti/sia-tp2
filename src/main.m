@@ -30,13 +30,12 @@ function main()
 
   while(!learned(cuadraticError,acceptedError) && length(learningErrors)<maxEpochs)
     #Training
-    [updatedWeights, obtainedOutputs] = train(learningPatterns, weights, expectedLearningOutputs, configuration);
-    cuadraticError = calculateCuadraticError(learningPatterns, updatedWeights, expectedLearningOutputs);
-
+    updatedWeights = train(learningPatterns, weights, expectedLearningOutputs, configuration);
+    [cuadraticError, obtainedOutputs] = calculateCuadraticError(learningPatterns, updatedWeights, expectedLearningOutputs, configuration);
     learningErrors = [learningErrors cuadraticError];
 
     #Testing
-    cuadraticTestingError = calculateCuadraticError(testingPatterns, updatedWeights, expectedTestingOutputs);
+    [cuadraticTestingError, obtainedTestingOutputs] = calculateCuadraticError(testingPatterns, updatedWeights, expectedTestingOutputs, configuration);
     testingErrors = [testingErrors cuadraticTestingError];
     #TODO check overfitting (Sobreentrenamiento).
     #Overfitting calculation
@@ -57,7 +56,7 @@ function main()
   finalSeconds = time() - initSeconds;
 
   displayOutputs(finalSeconds, learningErrors, configuration);
-  saveOutputs(finalSeconds, learningErrors, obtainedOutputs,acceptedError,maxEpochs,architecture,etha,beta);
+#  saveOutputs(finalSeconds, learningErrors, obtainedOutputs,acceptedError,maxEpochs,architecture,etha,beta);
 
   #plot(learningErrors);
   draw(learningPatterns, expectedLearningOutputs, obtainedOutputs, f2);
