@@ -93,36 +93,23 @@ function distanceMedianFromVector = distanceMedianFromVector(data)
 	distanceMedianFromVector = median(distanceVector);
 endfunction
 
-#Activation functions and derivatives
-#Derivative activation functions
-function response = tanDerivativeActivationFunction(input,beta, outputLayer=0)
-	response = 1-input.^2;
-	if(outputLayer)
-	#TODO chequear que esta normalización este bien. La deriv esta entre 0 y 1.
-		response = normalize(response, 0, 1, 0.1, 0.9);
-	endif
+
+####Derivative activation functions
+
+function response = tanDerivativeActivationFunction(g,beta, outputLayer=0)
+	response = beta*(1-g.^2);
 endfunction
 
-function response = expDerivativeActivationFunction(input,beta,outputLayer=0)
-	response = input * (1 - input);
-	if(outputLayer)
-		#TODO chequear que esta normalización este bien. La deriv esta entre 0 y 1.
-		response = normalize(response, 0, 0.25, 0.1, 0.25);
-	endif
+function response = expDerivativeActivationFunction(g,beta,outputLayer=0)
+	response = 2 * beta * g * (1 - g);
 endfunction
 
-#Activation functions
-function response = tanActivationFunction(input,beta,outputLayer=0)
-	response = tanh(beta*input);
-	if(outputLayer)
-		response = normalize(response, -1, 1, -0.8, 0.8);
-	endif
+####Activation functions
+
+function response = tanActivationFunction(h,beta,outputLayer=0)
+	response = tanh(beta*h);
 endfunction
 
-function response = expActivationFunction(input,beta,outputLayer=0)
-	x = beta*input;
-	response = (1+exp((-1)*x))^(-1);
-	if(outputLayer)
-		response = normalize(response, 0, 1, 0.1, 0.9);
-	endif
+function response = expActivationFunction(h,beta,outputLayer=0)
+	response = 1/(1+exp(-2*beta*h));
 endfunction

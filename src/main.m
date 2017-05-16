@@ -9,7 +9,7 @@ function main()
   maxEpochs = configuration.maxEpochs;
 
   learningPatterns = configuration.learningDataInputs;
-  expectedLearningOutputs = normalizeOutputs(configuration.learningDataExpectedOutputs, configuration);
+  expectedLearningOutputs = configuration.learningDataExpectedOutputs;
   testingPatterns = configuration.testingDataInputs;
   expectedTestingOutputs = configuration.testingDataExpectedOutputs;
   architecture = configuration.architecture;
@@ -24,7 +24,7 @@ function main()
   f1 = figure(); hold on
   f2 = figure(); hold on
 
-  while(!learned(cuadraticError,acceptedError) && length(learningErrors)<maxEpochs)
+  while(!learned(cuadraticError,acceptedError)) #&& length(learningErrors)<maxEpochs)
     #Training
     updatedWeights = train(learningPatterns, weights, expectedLearningOutputs, configuration);
     [cuadraticError, obtainedOutputs] = calculateCuadraticError(learningPatterns, updatedWeights, expectedLearningOutputs, configuration);
