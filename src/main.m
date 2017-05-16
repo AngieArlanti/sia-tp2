@@ -7,13 +7,9 @@ function main()
   cuadraticError = 1;
   cuadraticTestingError = 1;
   maxEpochs = configuration.maxEpochs;
-  #learningPatterns = {[-1.8438,-0.9657],[  0,-1.6551]}#,[-2.3054,1.6704], [-0.5935,0]};
-  #expectedLearningOutputs={[0.0113],[0.2423]}#,[0.1211],[0.3320]};
-  #testingPatterns = {[-1.8438,1.6704],[-1.6423,1.2835],[3.1648,2.0107], [-0.2894,1.3745]};
-  #expectedTestingOutputs={[0.3054],[0.6634],[0.0000],[0.5346]};
 
   learningPatterns = configuration.learningDataInputs;
-  expectedLearningOutputs = configuration.learningDataExpectedOutputs;
+  expectedLearningOutputs = normalizeOutputs(configuration.learningDataExpectedOutputs, configuration);
   testingPatterns = configuration.testingDataInputs;
   expectedTestingOutputs = configuration.testingDataExpectedOutputs;
   architecture = configuration.architecture;
