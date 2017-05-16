@@ -30,8 +30,11 @@ function config = parseConfigurationFile()
   			config.architecture = networkToArray(strsplit(value, ','));
   		case 'activationFunction'
         [config.activationFunction, config.activationFunctionDerivative]  = parseActivationFunction(value);
+				config.activationFunctionName = value;
       case 'alpha'
         config.momentum = 1/(1-str2double(value));
+      case 'momentum'
+        config.momentum = str2double(value);
       case 'dataSource'
         [config.learningDataInputs,config.learningDataExpectedOutputs,config.testingDataInputs,config.testingDataExpectedOutputs] = readFromFile(value,config.learningPatternsPercentage);
   	endswitch
@@ -85,28 +88,33 @@ endfunction
 #Activation functions and derivatives
 #Derivative activation functions
 function response = tanDerivativeActivationFunction(input,beta, outputLayer=0)
-  response = 1-input.^2;
+	response = 1-input.^2;
+	if(outputLayer)
+	#TODO chequear que esta normalización este bien. La deriv esta entre 0 y 1.
+		response = normalize(response, 0, 1, 0.1, 0.9);
+	endif
 endfunction
 
 function response = expDerivativeActivationFunction(input,beta,outputLayer=0)
+	response = input * (1 - input);
 	if(outputLayer)
-		#Normalized with linear function between 0 and 1.
-		response = (input^2) * ((input^(-1))-1);
-	else
-		response = input;
+		#TODO chequear que esta normalización este bien. La deriv esta entre 0 y 1.
+		response = normalize(response, 0, 0.25, 0.1, 0.25);
 	endif
 endfunction
 
 #Activation functions
 function response = tanActivationFunction(input,beta,outputLayer=0)
-  response = tanh(beta*input);
-endfunction
-function response = expActivationFunction(input,beta,outputLayer=0)
+	response = tanh(beta*input);
 	if(outputLayer)
-		x = beta*input;
-		#Normalized with linear function between 0 and 1.
-		response = (1+exp((-1)*x))^(-1);
-	else
-		response = exp(beta*input);
+		response = normalize(response, -1, 1, -0.8, 0.8);
+	endif
+endfunction
+
+function response = expActivationFunction(input,beta,outputLayer=0)
+	x = beta*input;
+	response = (1+exp((-1)*x))^(-1);
+	if(outputLayer)
+		response = normalize(response, 0, 1, 0.1, 0.9);
 	endif
 endfunction
