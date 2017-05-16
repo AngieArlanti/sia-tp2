@@ -1,9 +1,9 @@
-architecture=2,10,1
+architecture=2,20,10,1
 eta=0.5
-learningPatternsPercentage=0.7
+learningPatternsPercentage=0.95
 activationFunction=tanh
-maxEpochs=1000
+maxEpochs=2500
 minCuadraticError=0.001
-beta=3
-alpha=0.3
+beta=0.8
+alpha=0.1
 dataSource=../resources/terrain.csv
