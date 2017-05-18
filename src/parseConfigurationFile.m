@@ -80,33 +80,23 @@ function [learningInputs, learningExpectedOutputs, testingInputs, testingExpecte
 		testingInputs{length(testingInputs)+1} = data(indexShuffle(index), 1:2);
 		testingExpectedOutputs{length(testingExpectedOutputs)+1} = data(indexShuffle(index), 3);
 	endfor
-endfunction
+ endfunction
 
-#Activation functions and derivatives
-#Derivative activation functions
-function response = tanDerivativeActivationFunction(input,beta, outputLayer=0)
-  response = 1-input.^2;
-endfunction
+####Derivative activation functions
+  function response = tanDerivativeActivationFunction(g,beta, outputLayer=0)
+    response = beta*(1-g.^2);
+  endfunction
 
-function response = expDerivativeActivationFunction(input,beta,outputLayer=0)
-	if(outputLayer)
-		#Normalized with linear function between 0 and 1.
-		response = (input^2) * ((input^(-1))-1);
-	else
-		response = input;
-	endif
-endfunction
+  function response = expDerivativeActivationFunction(g,beta,outputLayer=0)
+    response = 2 * beta * g * (1 - g);
+  endfunction
 
-#Activation functions
-function response = tanActivationFunction(input,beta,outputLayer=0)
-  response = tanh(beta*input);
-endfunction
-function response = expActivationFunction(input,beta,outputLayer=0)
-	if(outputLayer)
-		x = beta*input;
-		#Normalized with linear function between 0 and 1.
-		response = (1+exp((-1)*x))^(-1);
-	else
-		response = exp(beta*input);
-	endif
-endfunction
+####Activation functions
+
+  function response = tanActivationFunction(h,beta,outputLayer=0)
+    response = tanh(beta*h);
+  endfunction
+
+  function response = expActivationFunction(h,beta,outputLayer=0)
+    response = 1/(1+exp(-2*beta*h));
+  endfunction
