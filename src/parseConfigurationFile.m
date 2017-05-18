@@ -88,7 +88,7 @@ function [learningInputs, learningExpectedOutputs, testingInputs, testingExpecte
   endfunction
 
   function response = expDerivativeActivationFunction(g,beta,outputLayer=0)
-    response = 2 * beta * g * (1 - g);
+    response = 2 * beta * g .* (1 - g);
   endfunction
 
 ####Activation functions
@@ -98,5 +98,5 @@ function [learningInputs, learningExpectedOutputs, testingInputs, testingExpecte
   endfunction
 
   function response = expActivationFunction(h,beta,outputLayer=0)
-    response = 1/(1+exp(-2*beta*h));
+    response = 1./(1+exp(-2*beta*h));
   endfunction

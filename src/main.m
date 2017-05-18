@@ -12,14 +12,14 @@ function main()
   #testingPatterns = {[-1.8438,1.6704],[-1.6423,1.2835],[3.1648,2.0107], [-0.2894,1.3745]};
   #expectedTestingOutputs={[0.3054],[0.6634],[0.0000],[0.5346]};
 
-  learningPatterns = {[-1,-1],[-1,1],[1,-1],[1,1]};
-  expectedLearningOutputs={[-1],[1],[1],[-1]};
-  testingPatterns = {[-1,-1],[-1,1],[1,-1],[1,1]};
-  expectedTestingOutputs={[-1],[1],[1],[-1]};
-  #learningPatterns = configuration.learningDataInputs;
-  #expectedLearningOutputs = configuration.learningDataExpectedOutputs;
-  #testingPatterns = configuration.testingDataInputs;
-  #expectedTestingOutputs = configuration.testingDataExpectedOutputs;
+  #learningPatterns = {[-1,-1],[-1,1],[1,-1],[1,1]};
+  #expectedLearningOutputs={[-1],[1],[1],[-1]};
+  #testingPatterns = {[-1,-1],[-1,1],[1,-1],[1,1]};
+  #expectedTestingOutputs={[-1],[1],[1],[-1]};
+  learningPatterns = configuration.learningDataInputs;
+  expectedLearningOutputs = configuration.learningDataExpectedOutputs;
+  testingPatterns = configuration.testingDataInputs;
+  expectedTestingOutputs = configuration.testingDataExpectedOutputs;
   architecture = configuration.architecture;
   beta = configuration.beta;
   weights = calculateWeights(architecture); #Le pasamos la arquitectura.
@@ -31,8 +31,8 @@ function main()
   initSeconds = time();
 
   f1 = figure(); hold on
-  #f2 = figure(); hold on
-  #f3 = figure(); hold on
+  f2 = figure(); hold on
+  f3 = figure(); hold on
   disp('Initial weights:'),
   weights
   while(!learned(cuadraticError,acceptedError))# && length(learningErrors)<maxEpochs)
@@ -46,8 +46,8 @@ function main()
     disp('weights:'),
     updatedWeights
     #Testing
-    #[cuadraticTestingError, obtainedTestingOutputs] = calculateCuadraticError(testingPatterns, updatedWeights, expectedTestingOutputs, configuration);
-    #testingErrors = [testingErrors cuadraticTestingError];
+    [cuadraticTestingError, obtainedTestingOutputs] = calculateCuadraticError(testingPatterns, updatedWeights, expectedTestingOutputs, configuration);
+    testingErrors = [testingErrors cuadraticTestingError];
     #TODO check overfitting (Sobreentrenamiento).
     #Overfitting calculation
     #if(cuadraticError < cuadraticTestingError)
@@ -59,23 +59,23 @@ function main()
 
     set(0,'CurrentFigure',f1)
     plot(learningErrors,'r');
-    #hold on;
-    #plot(testingErrors,'b');
+    hold on;
+    plot(testingErrors,'b');
 
   end
   #updatedWeights = train(learningPatterns, weights, expectedLearningOutputs, configuration);
   #[cuadraticError, obtainedOutputs] = calculateCuadraticError(learningPatterns, updatedWeights, expectedLearningOutputs, configuration);
 
   finalSeconds = time() - initSeconds;
-  #learningPatterns
-  #expectedLearningOutputs
-  #obtainedOutputs
-  #configuration.beta
-  #configuration.etha
-  #displayOutputs(finalSeconds, learningErrors, configuration);
-  #saveOutputs(finalSeconds, learningErrors, obtainedOutputs,acceptedError,maxEpochs,architecture,etha,beta);
+  learningPatterns
+  expectedLearningOutputs
+  obtainedOutputs
+  configuration.beta
+  configuration.etha
+  displayOutputs(finalSeconds, learningErrors, configuration);
+  saveOutputs(finalSeconds, learningErrors, obtainedOutputs,acceptedError,maxEpochs,architecture,etha,beta);
 
   #plot(learningErrors);
-  #draw(learningPatterns, expectedLearningOutputs, obtainedOutputs, f2);
-  #draw(testingPatterns, expectedTestingOutputs, obtainedTestingOutputs, f3);
+  draw(learningPatterns, expectedLearningOutputs, obtainedOutputs, f2);
+  draw(testingPatterns, expectedTestingOutputs, obtainedTestingOutputs, f3);
 endfunction
