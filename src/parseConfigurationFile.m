@@ -34,6 +34,12 @@ function config = parseConfigurationFile()
         config.momentum = 1/(1-str2double(value));
       case 'dataSource'
         [config.learningDataInputs,config.learningDataExpectedOutputs,config.testingDataInputs,config.testingDataExpectedOutputs] = readFromFile(value,config.learningPatternsPercentage);
+      case 'pointOneOptimization'
+        if(value == 1)
+          config.pointOneOptimization = 0.1;
+        else
+          config.pointOneOptimization = 0;
+        endif
   	endswitch
 	endwhile
   fclose (fid);

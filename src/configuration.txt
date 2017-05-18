@@ -6,4 +6,5 @@ maxEpochs=1000
 minCuadraticError=0.001
 beta=0.5
 alpha=0.1
+pointOneOptimization=0
 dataSource=../resources/terrain.csv

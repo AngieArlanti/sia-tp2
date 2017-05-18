@@ -21,7 +21,8 @@ function updatedWeights = trainNetwork(patterns, weights, expectedOutputs,config
 
 		#Actualizo los pesos
 		for weightIndex = 1 : length(updatedWeights)
-			deltaW = configuration.etha * layers{weightIndex}' * deltaStructure{weightIndex + 1};
+			deltaW = (configuration.etha * configuration.momentum * layers{weightIndex}' * deltaStructure{weightIndex + 1}) 
+						+ configuration.pointOneOptimization;
 			updatedWeights{weightIndex} = updatedWeights{weightIndex} + deltaW;
 		endfor
 
