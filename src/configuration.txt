@@ -1,4 +1,4 @@
-architecture=2,2,1
+architecture=2,10,5,1
 eta=0.05
 learningPatternsPercentage=0.95
 activationFunction=tanh

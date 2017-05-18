@@ -11,7 +11,7 @@ function updatedWeights = trainNetwork(patterns, weights, expectedOutputs,config
 
 		deltaStructure{length(layers)} = configuration.activationFunctionDerivative(layers{end},configuration.beta) * error;
 		#Calculo los deltas
-		for hiddenLayerIndex = length(layers)-1 : 2
+		for hiddenLayerIndex = length(layers)-1:-1:2
 			currentLayer = layers{hiddenLayerIndex};
 			currentNeurons = currentLayer(2:length(currentLayer));
 			gDerivativeVector = configuration.activationFunctionDerivative(currentNeurons,configuration.beta);
