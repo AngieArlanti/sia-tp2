@@ -31,8 +31,8 @@ function main()
   initSeconds = time();
 
   f1 = figure(); hold on
-  f2 = figure(); hold on
-  f3 = figure(); hold on
+  f2 = figure(); 
+  f3 = figure(); 
   disp('Initial weights:'),
   weights
   while(!learned(cuadraticError,acceptedError))# && length(learningErrors)<maxEpochs)
@@ -63,8 +63,7 @@ function main()
     plot(testingErrors,'b');
 
   end
-  #updatedWeights = train(learningPatterns, weights, expectedLearningOutputs, configuration);
-  #[cuadraticError, obtainedOutputs] = calculateCuadraticError(learningPatterns, updatedWeights, expectedLearningOutputs, configuration);
+  
 
   finalSeconds = time() - initSeconds;
   learningPatterns

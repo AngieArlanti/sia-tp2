@@ -19,5 +19,5 @@ endfor
 figure(f2);
 plot3(x,y,expectedZ,'ro');
 hold on;
-plot3(x,y,obtainedZ,'b*');
+plot3(x,y,expectedZ,'b*');
 endfunction
