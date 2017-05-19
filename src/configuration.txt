@@ -8,3 +8,7 @@ beta=0.5
 alpha=0.1
 pointOneOptimization=1
 dataSource=../resources/terrain.csv
+a=0.0003
+b=0.08
+k=5
+stepsGrowing=0

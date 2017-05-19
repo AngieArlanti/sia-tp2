@@ -37,9 +37,14 @@ function main()
   weights
   while(!learned(cuadraticError,acceptedError))# && length(learningErrors)<maxEpochs)
     #Training
+    previousWeights = weights;
     updatedWeights = trainNetwork(learningPatterns, weights, expectedLearningOutputs, configuration);
     [cuadraticError, obtainedOutputs] = calculateCuadraticError(learningPatterns, updatedWeights, expectedLearningOutputs, configuration);
     learningErrors = [learningErrors cuadraticError];
+
+    [conf,upw]=adaptEtha(configuration,learningErrors,previousWeights, updatedWeights);
+    configuration = conf;
+    updatedWeights =upw;
     disp('OutPuts para la Epoca:'),
     disp(length(learningErrors));
     obtainedOutputs
@@ -55,6 +60,7 @@ function main()
     #endif
     #cla;
     #draw(learningPatterns, expectedLearningOutputs, obtainedOutputs);
+    
     weights = updatedWeights;
 
     set(0,'CurrentFigure',f1)

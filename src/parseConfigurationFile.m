@@ -32,6 +32,14 @@ function config = parseConfigurationFile()
         [config.activationFunction, config.activationFunctionDerivative]  = parseActivationFunction(value);
       case 'alpha'
         config.momentum = 1/(1-str2double(value));
+      case 'a'
+        config.a = str2double(value);
+      case 'b'
+        config.b = str2double(value);
+      case 'k'
+        config.k = str2double(value);
+      case 'stepsGrowing'
+        config.stepsGrowing = str2double(value);
       case 'dataSource'
         [config.learningDataInputs,config.learningDataExpectedOutputs,config.testingDataInputs,config.testingDataExpectedOutputs] = readFromFile(value,config.learningPatternsPercentage);
       case 'pointOneOptimization'
