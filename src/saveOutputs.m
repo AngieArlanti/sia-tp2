@@ -1,12 +1,14 @@
-function saveOutputs(outputFilePath, finalSeconds, testingErrors, obtainedOutputs,acceptedError,maxEpochs,architecture,etha,beta, initialWeights, finalWeights);
-
+function filePath = saveOutputs(outputFileName, finalSeconds, testingErrors, obtainedOutputs,acceptedError,maxEpochs,architecture,etha,beta, initialWeights, finalWeights);
 
   epochs = length(testingErrors);
   cuadraticError = testingErrors(end);
 
-  mkdir ('../', 'outputs');
+  mkdir ('../', 'tests');
+  mkdir ('../tests/', outputFileName);
 
-  fid = fopen (outputFilePath, "w");
+  filePath = ['../tests/' outputFileName '/' outputFileName '.txt'];
+
+  fid = fopen (filePath, "w");
   fdisp (fid, ctime(time()));
   fdisp (fid, "");
   fdisp (fid, "===============================================");

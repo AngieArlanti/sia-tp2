@@ -1,15 +1,7 @@
-function epochs = main(configurationFilePath, outputFilePath)
- disp(''),
- disp('==============================================='),
- disp(''),
- disp('ARCHIVO DE CONFIGURACION: '),
- disp(configurationFilePath),
- disp('');
-
-  #Close all plots before starting.
-  close all;
-  clf;
-
+function epochs = main(configurationFilePath, outputFileName)
+ 
+  initDisplay(configurationFilePath);
+  
   configuration = parseConfigurationFile(configurationFilePath);
   acceptedError = configuration.minCuadraticError;
   cuadraticError = 1;
@@ -66,10 +58,12 @@ function epochs = main(configurationFilePath, outputFilePath)
   finalSeconds = time() - initSeconds;
   epochs = length(learningErrors);
   
-  displayOutputs(outputFilePath,finalSeconds, testingErrors, configuration);
-  saveOutputs(outputFilePath, finalSeconds, testingErrors, obtainedOutputs,acceptedError,maxEpochs,architecture,etha,beta, initialWeights, finalWeights);
+  
+  filePath = saveOutputs(outputFileName, finalSeconds, testingErrors, obtainedOutputs,acceptedError,maxEpochs,architecture,etha,beta, initialWeights, finalWeights);
+  ##TODO:::: APAGAR DESDE CONFIG EL DISPLAY por si se quiere mostrar únicamente las estadísticas de prueba.
+  displayOutputs(filePath,finalSeconds, testingErrors, configuration);
 
-  #plot(learningErrors);
+  ##TODO ::: GUARDAR LOS PLOTEOS EN filePath
   draw(learningPatterns, expectedLearningOutputs, obtainedOutputs, f2);
   draw(testingPatterns, expectedTestingOutputs, obtainedTestingOutputs, f3);
 endfunction

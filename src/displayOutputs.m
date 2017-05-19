@@ -1,6 +1,5 @@
-function displayOutputs(outputFilePath, finalSeconds, testingErrors, configuration)
+function displayOutputs(outputFileName, finalSeconds, testingErrors, configuration)
 
-disp('-----------------------------------------------'),
 disp(''),
 disp('APRENDIÓ CON LAS SIGUIENTES MÉTRICAS:'),
 disp('');
@@ -12,7 +11,7 @@ disp('Error Cuadrático Medio (Testeo):'),
 disp(testingErrors(end));
 disp('');
 disp('VER RESULTADOS EN: '),
-disp(outputFilePath),
+disp(outputFileName),
 disp(''),
 disp('===============================================');
 endfunction
