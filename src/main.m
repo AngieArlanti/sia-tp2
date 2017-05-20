@@ -29,7 +29,7 @@ function epochs = main(configurationFilePath, outputFileName, seeds)
   initialWeights = weights;
 
   epoch=0;
-  while(!learned(cuadraticError,acceptedError) && length(learningErrors)<maxEpochs)
+  while(!learned(cuadraticError,acceptedError)) # && length(learningErrors)<maxEpochs)
     #Training
     updatedWeights = trainNetwork(learningPatterns, weights, expectedLearningOutputs, configuration);
     [cuadraticError, obtainedOutputs] = calculateCuadraticError(learningPatterns, updatedWeights, expectedLearningOutputs, configuration);
@@ -39,15 +39,17 @@ function epochs = main(configurationFilePath, outputFileName, seeds)
     [cuadraticTestingError, obtainedTestingOutputs] = calculateCuadraticError(testingPatterns, updatedWeights, expectedTestingOutputs, configuration);
     testingErrors = [testingErrors cuadraticTestingError];
     
-
+    refresh;
     set(0,'CurrentFigure',f1)
     plot(learningErrors,'r');
-    refresh;
     if(mod(epoch,20) == 0)
       hold on;
       plot(testingErrors,'b');
       refresh;
     endif
+    xlabel ("Epocas");
+    ylabel ("Error");
+    title ("Error de Entrenamiento vs Error de Testeo");
 
     epoch++;
     weights = updatedWeights;
@@ -63,7 +65,11 @@ function epochs = main(configurationFilePath, outputFileName, seeds)
   ##TODO:::: APAGAR DESDE CONFIG EL DISPLAY por si se quiere mostrar únicamente las estadísticas de prueba.
   displayOutputs(filePath,finalSeconds, testingErrors, configuration);
 
-  ##TODO ::: GUARDAR LOS PLOTEOS EN filePath
-  draw(learningPatterns, expectedLearningOutputs, obtainedOutputs, f2);
-  draw(testingPatterns, expectedTestingOutputs, obtainedTestingOutputs, f3);
+  draw(learningPatterns, expectedLearningOutputs, obtainedOutputs, f2, "Conjunto de Entrenamiento vs Esperados");
+  
+  fpath = ['../tests/' outputFileName '/'];
+
+  saveas(f2, fullfile(fpath, ['Entrenamiento - ' outputFileName]), 'png');
+  draw(testingPatterns, expectedTestingOutputs, obtainedTestingOutputs, f3, "Conjunto de Testeo vs Esperados");
+  saveas(f3, fullfile(fpath, ['Generalizacion Testeo - ' outputFileName]), 'png');
 endfunction
