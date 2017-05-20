@@ -25,7 +25,7 @@ function epochs = main(configurationFilePath, outputFileName, seeds)
 
   initialWeights = weights;
 
-  while(!learned(cuadraticError,acceptedError)) #&& length(learningErrors)<maxEpochs)
+  while(!learned(cuadraticError,acceptedError))# && length(learningErrors)<maxEpochs)
     #Training
     updatedWeights = trainNetwork(learningPatterns, weights, expectedLearningOutputs, configuration);
     [cuadraticError, obtainedOutputs] = calculateCuadraticError(learningPatterns, updatedWeights, expectedLearningOutputs, configuration);
