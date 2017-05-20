@@ -21,15 +21,11 @@ function epochs = main(configurationFilePath, outputFileName, seeds)
   testingErrors = [];
   etha = configuration.etha;
   initSeconds = time();
-
-  f1 = figure(); hold on
-  f2 = figure(); hold on
-  f3 = figure(); hold on
+  fpath = ['../tests/' outputFileName '/'];
 
   initialWeights = weights;
 
-  epoch=0;
-  while(!learned(cuadraticError,acceptedError)) # && length(learningErrors)<maxEpochs)
+  while(!learned(cuadraticError,acceptedError)) #&& length(learningErrors)<maxEpochs)
     #Training
     updatedWeights = trainNetwork(learningPatterns, weights, expectedLearningOutputs, configuration);
     [cuadraticError, obtainedOutputs] = calculateCuadraticError(learningPatterns, updatedWeights, expectedLearningOutputs, configuration);
@@ -39,37 +35,44 @@ function epochs = main(configurationFilePath, outputFileName, seeds)
     [cuadraticTestingError, obtainedTestingOutputs] = calculateCuadraticError(testingPatterns, updatedWeights, expectedTestingOutputs, configuration);
     testingErrors = [testingErrors cuadraticTestingError];
     
-    refresh;
-    set(0,'CurrentFigure',f1)
+    weights = updatedWeights;
+  end
+  
+  f1 = figure(); hold on
+  f2 = figure(); hold on
+  f3 = figure(); hold on
+
+  set(0,'CurrentFigure',f1)
     plot(learningErrors,'r');
-    if(mod(epoch,20) == 0)
+    refresh;
+    #if(mod(epoch,20) == 0)
       hold on;
       plot(testingErrors,'b');
       refresh;
-    endif
+    #endif
     xlabel ("Epocas");
     ylabel ("Error");
     title ("Error de Entrenamiento vs Error de Testeo");
-
-    epoch++;
-    weights = updatedWeights;
-  end
+    saveas(f1, fullfile(fpath, ['Errores - ' outputFileName]), 'png');
+    close all;
+    clf;
 
   finalWeights = updatedWeights;
   
   finalSeconds = time() - initSeconds;
   epochs = length(learningErrors);
   
-  
   filePath = saveOutputs(outputFileName, finalSeconds, testingErrors, obtainedOutputs,acceptedError,maxEpochs,architecture,etha,beta, initialWeights, finalWeights);
   ##TODO:::: APAGAR DESDE CONFIG EL DISPLAY por si se quiere mostrar únicamente las estadísticas de prueba.
   displayOutputs(filePath,finalSeconds, testingErrors, configuration);
 
   draw(learningPatterns, expectedLearningOutputs, obtainedOutputs, f2, "Conjunto de Entrenamiento vs Esperados");
-  
-  fpath = ['../tests/' outputFileName '/'];
 
   saveas(f2, fullfile(fpath, ['Entrenamiento - ' outputFileName]), 'png');
   draw(testingPatterns, expectedTestingOutputs, obtainedTestingOutputs, f3, "Conjunto de Testeo vs Esperados");
   saveas(f3, fullfile(fpath, ['Generalizacion Testeo - ' outputFileName]), 'png');
+
+  close all;
+    clf;
+
 endfunction
