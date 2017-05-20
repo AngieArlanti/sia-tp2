@@ -9,7 +9,7 @@ function updatedWeights = trainNetwork(patterns, weights, expectedOutputs,config
 		layers = feedforward(patternsWithBiases{indexShuffle(patternIndex)},updatedWeights,configuration);		
 		error = expectedOutputs{indexShuffle(patternIndex)} - layers{end};
 
-		deltaStructure{length(layers)} = configuration.activationFunctionDerivative(layers{end},configuration.beta) * error;
+		deltaStructure{length(layers)} = (configuration.activationFunctionDerivative(layers{end},configuration.beta) + configuration.pointOneOptimization)* error;
 		#Calculo los deltas
 		for hiddenLayerIndex = length(layers)-1:-1:2
 			currentLayer = layers{hiddenLayerIndex};
@@ -21,7 +21,7 @@ function updatedWeights = trainNetwork(patterns, weights, expectedOutputs,config
 
 		#Actualizo los pesos
 		for weightIndex = 1 : length(updatedWeights)
-			deltaW = configuration.etha * layers{weightIndex}' * deltaStructure{weightIndex + 1};
+			deltaW = configuration.etha * configuration.momentum * layers{weightIndex}' * deltaStructure{weightIndex + 1};
 			updatedWeights{weightIndex} = updatedWeights{weightIndex} + deltaW;
 		endfor
 
