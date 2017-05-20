@@ -1,10 +1,17 @@
-function displayOutputs(finalSeconds, learningErrors, configuration)
+function displayOutputs(outputFileName, finalSeconds, testingErrors, configuration)
 
-disp('Tiempo:'),
-disp(finalSeconds);
+disp(''),
+disp('APRENDIÓ CON LAS SIGUIENTES MÉTRICAS:'),
+disp('');
+disp('Tiempo (min):'),
+disp(finalSeconds/60);
 disp('Epocas:'),
-disp(length(learningErrors));
-disp('Error Cuadrático Medio:'),
-disp(learningErrors(end));
-
+disp(length(testingErrors));
+disp('Error Cuadrático Medio (Testeo):'),
+disp(testingErrors(end));
+disp('');
+disp('VER RESULTADOS EN: '),
+disp(outputFileName),
+disp(''),
+disp('===============================================');
 endfunction
