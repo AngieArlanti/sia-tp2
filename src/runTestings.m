@@ -2,15 +2,44 @@ function runTestings()
 
 	epochs = [];
 
-	for i=1:2
+	runLimit = 20;
+	architectureComparisons = {};
 
-		outputFileName = ['output' num2str(i)];
-		configurationFileName = ['configuration' num2str(i)];
-		architecture='2,35,10,1';
-		configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
+	outputFileName = 'output1';
+	configurationFileName = 'configuration1';
+	architecture='2,35,10,1';
+	seeds = calculateSeeds(architecture);
+	
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
+	configurationPath
+	epochs = [epochs main(configurationPath, outputFileName, seeds)];
 
-		epochs = [epochs main(configurationPath, outputFileName)];
+	outputFileName = 'output2';
+	configurationFileName = 'configuration2';
+	architecture='2,10,35,1';
 
-	endfor
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
+	epochs = [epochs main(configurationPath, outputFileName, seeds)];
+
+	outputFileName = 'output3';
+	configurationFileName = 'configuration3';
+	architecture='2,20,5,1';
+
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
+	epochs = [epochs main(configurationPath, outputFileName, seeds)];
+
+	outputFileName = 'output4';
+	configurationFileName = 'configuration4';
+	architecture='2,4,4,1';
+
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
+	epochs = [epochs main(configurationPath, outputFileName, seeds)];
+
+	outputFileName = 'output5';
+	configurationFileName = 'configuration5';
+	architecture='2,8,3,1';
+
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
+	epochs = [epochs main(configurationPath, outputFileName, seeds)];
 
 endfunction

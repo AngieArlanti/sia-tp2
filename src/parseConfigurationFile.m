@@ -2,8 +2,8 @@
 # is a function file:
 #1;
 #Return a config object with all the data from the configuration file
-function config = parseConfigurationFile()
-	fid = fopen ('configuration.txt', 'r');
+function config = parseConfigurationFile(configurationFilePath)
+	fid = fopen (configurationFilePath, 'r');
 	config.alpha = 0;
 	while (!feof (fid))
   	line = fgetl (fid);

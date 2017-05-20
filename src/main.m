@@ -1,4 +1,4 @@
-function epochs = main(configurationFilePath, outputFileName)
+function epochs = main(configurationFilePath, outputFileName, seeds)
  
   initDisplay(configurationFilePath);
   
@@ -14,7 +14,7 @@ function epochs = main(configurationFilePath, outputFileName)
   expectedTestingOutputs = configuration.testingDataExpectedOutputs;
   architecture = configuration.architecture;
   beta = configuration.beta;
-  weights = calculateWeights(architecture); #Le pasamos la arquitectura.
+  weights = calculateWeights(architecture, seeds); #Le pasamos la arquitectura.
   
   #The epoch corresponds with index.
   learningErrors = [];
@@ -25,7 +25,7 @@ function epochs = main(configurationFilePath, outputFileName)
   f1 = figure(); hold on
   f2 = figure(); hold on
   f3 = figure(); hold on
-  
+
   initialWeights = weights;
 
   epoch=0;
