@@ -2,80 +2,93 @@ function runTestings()
 
 	epochs = [];
 
-	runLimit = 20;
-	architectureComparisons = {};
+	#runLimit = 20;
+	#architectures = ['2,35,10,1'; '2,10,35,1' ;'2,20,5,1' ;'2,4,4,1' ;'2,8,3,1'; '2,10,10,10,1' ;'2,30,30,30,1'; '2,10,30,30,1'; '2,30,30,10,1'];
 
-	outputFileName = 'output1';
+	outputFileName = 'optimizaciones1';
 	configurationFileName = 'configuration1';
-	architecture='2,35,10,1';
+	architecture='2,50,1';
 	seeds = calculateSeeds(architecture);
 	
 	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
 	epochs = [epochs main(configurationPath, outputFileName, seeds)];
 
-	outputFileName = 'output2';
+	outputFileName = 'optimizaciones2';
 	configurationFileName = 'configuration2';
-	architecture='2,10,35,1';
+	architecture='2,10,1';
 
 	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
 	epochs = [epochs main(configurationPath, outputFileName, seeds)];
 
-	outputFileName = 'output3';
+	outputFileName = 'optimizaciones3';
 	configurationFileName = 'configuration3';
-	architecture='2,20,5,1';
+	architecture='2,5,1';
 
 	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
 	epochs = [epochs main(configurationPath, outputFileName, seeds)];
-
-	outputFileName = 'output4';
-	configurationFileName = 'configuration4';
-	architecture='2,4,4,1';
-
-	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
-	epochs = [epochs main(configurationPath, outputFileName, seeds)];
-
-	outputFileName = 'output5';
-	configurationFileName = 'configuration5';
-	architecture='2,8,3,1';
-
-	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
-	epochs = [epochs main(configurationPath, outputFileName, seeds)];
-
-	outputFileName = 'output6';
-	configurationFileName = 'configuration6';
-	architecture='2,10,10,10,1';
-	seeds = calculateSeeds(architecture);
 	
-	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
+
+	outputFileName = 'momentum1';
+	configurationFileName = 'configuration1';
+	architecture='2,50,1';
+	
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture, eta='0.05',learningPatternsPercentage='0.80',activationFunction='exp', maxEpochs='8000', minCuadraticError='0.001', beta='0.5', alpha='0.1',dataSource='../resources/terrain.csv',pointOneOptimization='0');
 	epochs = [epochs main(configurationPath, outputFileName, seeds)];
 
-	outputFileName = 'output7';
-	configurationFileName = 'configuration7';
-	architecture='2,30,30,30,1';
-	seeds = calculateSeeds(architecture);
-	
-	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
+	outputFileName = 'momentum2';
+	configurationFileName = 'configuration2';
+	architecture='2,10,1';
+
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture, eta='0.05',learningPatternsPercentage='0.80',activationFunction='exp', maxEpochs='8000', minCuadraticError='0.001', beta='0.5', alpha='0.1',dataSource='../resources/terrain.csv',pointOneOptimization='0');
 	epochs = [epochs main(configurationPath, outputFileName, seeds)];
 
-	outputFileName = 'output8';
-	configurationFileName = 'configuration8';
-	architecture='2,10,30,30,1';
+	outputFileName = 'momentum3';
+	configurationFileName = 'configuration3';
+	architecture='2,5,1';
+
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture, eta='0.05',learningPatternsPercentage='0.80',activationFunction='exp', maxEpochs='8000', minCuadraticError='0.001', beta='0.5', alpha='0.1',dataSource='../resources/terrain.csv',pointOneOptimization='0');
+	epochs = [epochs main(configurationPath, outputFileName, seeds)];
 	
-	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
+	outputFileName = 'delta1';
+	configurationFileName = 'configuration1';
+	architecture='2,50,1';
+	
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture, eta='0.05',learningPatternsPercentage='0.80',activationFunction='exp', maxEpochs='8000', minCuadraticError='0.001', beta='0.5', alpha='0',dataSource='../resources/terrain.csv',pointOneOptimization='1');
 	epochs = [epochs main(configurationPath, outputFileName, seeds)];
 
-	outputFileName = 'output9';
-	configurationFileName = 'configuration9';
-	architecture='2,30,10,30,1';
-	
-	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
+	outputFileName = 'delta2';
+	configurationFileName = 'configuration2';
+	architecture='2,10,1';
+
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture, eta='0.05',learningPatternsPercentage='0.80',activationFunction='exp', maxEpochs='8000', minCuadraticError='0.001', beta='0.5', alpha='0',dataSource='../resources/terrain.csv',pointOneOptimization='1');
 	epochs = [epochs main(configurationPath, outputFileName, seeds)];
 
-	outputFileName = 'output10';
-	configurationFileName = 'configuration10';
-	architecture='2,30,30,10,1';
+	outputFileName = 'delta3';
+	configurationFileName = 'configuration3';
+	architecture='2,5,1';
+
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture, eta='0.05',learningPatternsPercentage='0.80',activationFunction='exp', maxEpochs='8000', minCuadraticError='0.001', beta='0.5', alpha='0',dataSource='../resources/terrain.csv',pointOneOptimization='1');
+	epochs = [epochs main(configurationPath, outputFileName, seeds)];
+
+	outputFileName = 'sinOptimizaciones1';
+	configurationFileName = 'configuration1';
+	architecture='2,50,1';
 	
-	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture);
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture, eta='0.05',learningPatternsPercentage='0.80',activationFunction='exp', maxEpochs='8000', minCuadraticError='0.001', beta='0.5', alpha='0',dataSource='../resources/terrain.csv',pointOneOptimization='0');
+	epochs = [epochs main(configurationPath, outputFileName, seeds)];
+
+	outputFileName = 'sinOptimizaciones2';
+	configurationFileName = 'configuration2';
+	architecture='2,10,1';
+
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture, eta='0.05',learningPatternsPercentage='0.80',activationFunction='exp', maxEpochs='8000', minCuadraticError='0.001', beta='0.5', alpha='0',dataSource='../resources/terrain.csv',pointOneOptimization='0');
+	epochs = [epochs main(configurationPath, outputFileName, seeds)];
+
+	outputFileName = 'sinOptimizaciones3';
+	configurationFileName = 'configuration3';
+	architecture='2,5,1';
+
+	configurationPath = generateConfigurationFile(outputFileName, configurationFileName, architecture, eta='0.05',learningPatternsPercentage='0.80',activationFunction='exp', maxEpochs='8000', minCuadraticError='0.001', beta='0.5', alpha='0',dataSource='../resources/terrain.csv',pointOneOptimization='0');
 	epochs = [epochs main(configurationPath, outputFileName, seeds)];
 
 endfunction
