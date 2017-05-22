@@ -1,7 +1,10 @@
 function mainWithParams()
  
-  
-  
+  #Close all plots before starting.
+  close all;
+    clf;
+
+
   configuration = parseConfigurationFile('configuration.txt');
   acceptedError = configuration.minCuadraticError;
   cuadraticError = 1;
@@ -26,9 +29,7 @@ function mainWithParams()
   initialWeights = weights;
 
   f1 = figure(); hold on
-  f2 = figure(); hold on
-  f3 = figure(); hold on
-
+  
   while(!learned(cuadraticError,acceptedError))# && length(learningErrors)<maxEpochs)
     #Training
     updatedWeights = trainNetwork(learningPatterns, weights, expectedLearningOutputs, configuration);
@@ -54,7 +55,10 @@ function mainWithParams()
     title ("Error de Entrenamiento vs Error de Testeo");
   end
   
-  
+
+  f2 = figure(); hold on
+  f3 = figure(); hold on
+
 
   set(0,'CurrentFigure',f1)
     plot(learningErrors,'r');
