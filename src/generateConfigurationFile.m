@@ -1,4 +1,4 @@
-function filePath = generateConfigurationFile(outputFileName, configurationFileName, architecture, eta='0.05',learningPatternsPercentage='0.80',activationFunction='exp', maxEpochs='8000', minCuadraticError='0.001', beta='0.5', alpha='0.1',dataSource='../resources/terrain.csv',pointOneOptimization='1')
+function filePath = generateConfigurationFile(outputFileName, configurationFileName, architecture, eta='0.05',learningPatternsPercentage='0.80',activationFunction='exp', maxEpochs='8000', minCuadraticError='0.001', beta='0.5', alpha='0.9',dataSource='../resources/terrain.csv',pointOneOptimization='1')
 
 	mkdir ('../', 'tests');
 	mkdir ('../tests/', outputFileName);
